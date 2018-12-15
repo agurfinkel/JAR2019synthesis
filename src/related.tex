@@ -1,0 +1,65 @@
+\section{Related Work}
+\label{sec:related}
+
+\iffalse
+The alternative name to program synthesis is Church's problem, since the description of the problem was first described by Church in 1963~\cite{church1962logic}. Research in this field of program synthesis attributes began in the 1970s, when Manna and Waldinger~\cite{manna1971toward} first introduced a synthesis procedure using principles of theorem proving. Almost two decades later, Pnueliand Rosner~\cite{pnueli1989synthesis} first formally described the
+implementability of reactive systems, considering first order logic formulas
+that stem from temporal specifications. In the same work, they provided a
+complete approach to synthesize finite-state implementations through the
+construction of deterministic Rabin automata.
+
+In the recent years, program synthesis has enjoyed a vast variety of
+contributions under numerous contexts. Gulwani~\cite{gulwani2010dimensions}
+presented an extended survey, hinting future research directions. Synthesis
+algorithms have been proposed for simple LTL specification~\cite{Bohy12,Tini03}
+subsets of it~\cite{Klein10,ehlers2010symbolic,cheng2016structural}, as well as under other temporal logics~\cite{monmege2016real,Hamza10}, such as SIS~\cite{Aziz95}.
+Chatterjee and Henzinger~\cite{Chatterjee07} proposed a novel component-based approach using the notion of Assume-Guarantee contracts.
+\fi
+The work presented in this paper is closely related to approaches that attempt
+to construct infinite-state implementations. Some focus on the continuous
+interaction of the user with the underlying machinery, either through the use of
+templates~\cite{srivastava2013template,beyene2014constraint}, or environments where the user attempts to guide the solver by choosing reactions from a collection of different
+interpretations~\cite{ryzhyk2016developing}.
+In contrast, our approach is completely automatic and does not require
+human ingenuity to find a solution.
+Most importantly, the user
+does not need to be deeply familiar with the problem at hand.
+\iffalse
+ A ``hands-off'' approach has been proposed in the past by Katis \textit{et
+al.}~\cite{gacek2015towards,katis2016towards,katis2016synthesis}. The work is
+based on the concept of extracting collections of reactions that witness the satisfaction of a $k$-inductive proof on the contract's realizability.
+In Section~\ref{sec:results} we were able to effectively show in practice how a
+validity-guided approach significantly improves upon this work, by using a
+fixpoint-generating technique rather than the principle of $k$-induction.
+\fi
+
+Iterative strengthening of candidate formulas is also used in abductive inference~\cite{dillig2013inductive}
+ %Dillig \textit{et al.} showed how abduction can be used
+of loop invariants.
+Their approach generates candidate invariants as maximum universal subsets (MUS) of quantifier-free formulas of the form $\phi \Rightarrow \psi$.
+%   via a refinement process that generates candidate invariants in the form of maximum universal subsets (MUS).
+While a MUS may be sufficient to prove validity, it may also mislead the invariant search, so the authors use a backtracking procedure that discovers new subsets while avoiding spurious results. By comparison, in our approach the regions of validity are maximal and therefore backtracking is not required.  More importantly, reactive synthesis requires mixed-quantifier formulas, and it requires that inputs are unconstrained (other than by the contract assumptions), so substantial modifications to the MUS algorithm would be necessary to apply the approach of~\cite{dillig2013inductive} for reactive synthesis.  %In our work, the ability to generate precise regions of validity lead to a very simple refinement process that is solely based on the input variables being existentially quantified.
+
+The concept of synthesizing implementations by discovering fixpoints was mostly
+inspired by the IC3 / PDR~\cite{bradley2011sat,een2011efficient}, which was first introduced
+in the context of verification. Work from Cimatti \textit{et al.} effectively
+applied this idea for the parameter synthesis in the
+\textsc{HyComp} model checker~\cite{DBLP:conf/fmcad/CimattiGMT13, cimatti2015hycomp}.
+Discovering fixpoints to synthesize reactive designs was first
+extensively covered by Piterman \textit{et al.}~\cite{piterman2006synthesis}
+who proved that the problem can be solved in cubic time for the class of GR(1) specifications.
+The algorithm requires the discovery of least fixpoints for the state variables,
+each one covering a greatest fixpoint of the input variables. If the specification
+is realizable, the entirety of the input space is covered by the greatest fixpoints.
+In contrast, our approach computes a single greatest fixpoint over the system's outputs and avoids the partitioning of the input space.  As the tools use different notations and support different logical fragments, practical comparisons are not straightforward, and thus are left for the future.
+
+More recently, Preiner \textit{et al}. presented work on model synthesis~\cite{preiner2017counterexample}, %that constructs candidate witnesses constructed and their validity is checked with respect to the specification. Internally,
+that employs a counterexample-guided refinement process~\cite{reynolds2015counterexample}
+to construct and check candidate models.
+Internally, it relies on enumerative learning, a syntax-based technique that enumerates expressions, checks their validity against
+ground test cases, and proceeds to generalize the expressions by constructing larger ones.
+In contrast, our approach is syntax-insensitive in terms of generating regions of validity.
+\iffalse
+On top of that, CEGMS has only been tested against the theory of Boolean Vectors (BV, and BV$_{LNIRA}$), while \jsynvg supports the mixed theories of linear integer and real arithmetic.
+\fi
+In general, enumeration techniques such as the one used in \textsc{ConSynth}'s underlying E-HSF engine~\cite{beyene2014constraint} is not an optimal strategy for our class of problems, since the witnesses constructed for the most complex contracts are described by nested if-then-else expressions of depth (i.e. number of branches) 10-20, a point at which space explosion is difficult to handle since the number of candidate solutions is large.

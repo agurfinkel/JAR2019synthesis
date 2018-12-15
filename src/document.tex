@@ -1,0 +1,216 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass[10pt,conference]{llncs}
+
+%to handle ranges of citations in IEEEtran
+\usepackage[noadjust]{cite}
+\renewcommand{\citepunct}{,\penalty\citepunctpenalty\,}
+\renewcommand{\citedash}{--}% optionally
+
+%To fix ``fi'' encoding
+\usepackage{cmap}
+%\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{courier}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+%--- Return lines start in a new line
+\let\oldReturn\Return
+\renewcommand{\Return}{\State\oldReturn}
+%---
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{placeins}
+\usepackage{amsmath,amssymb}
+\usepackage{xspace}
+\usepackage[font=footnotesize]{caption}
+\captionsetup[table]{skip=10pt}
+%to solve the hyperref problem of jumping to wrong places
+%\usepackage[all]{hypcap}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{booktabs}
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\graphicspath{{images/}}
+%\usepackage[ruled,shortend,linesnumbered,algo2e]{algorithm2e}  % algo2e = use
+% \begin{algorithm2e}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{framed}
+\usepackage{multirow}
+
+%TACAS artifact badge
+%\usepackage[firstpage]{draftwatermark}
+%\SetWatermarkText{\hspace*{6in}\raisebox{6.3in}{\includegraphics[scale=0.1]{aec-badge-tacas}}}
+%\SetWatermarkAngle{0}
+
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{corollary}{Corollary}
+
+\newcommand{\aeval}{\textsc{AE-VAL}\xspace}
+\newcommand{\jkind}{\textsc{JKind}\xspace}
+
+\newcommand{\jsyn}{\textsc{JSyn}\xspace}
+
+\newcommand{\jsynvg}{\textsc{JSyn-vg}\xspace}
+% \newcommand{\jsynvg}{\textsc{Jvgs}\xspace}
+\newcommand{\smtlibtoc}{\textsc{SMTLib2C}\xspace}
+\newcommand{\lustrev}{\textsc{LustreV6}\xspace}
+
+\newcommand{\isSat}{\textsc{isSat}\xspace}
+\newcommand{\isUnSat}{\textsc{isUnsat}\xspace}
+
+\newcommand{\viable}{{\mathsf {Viable}}}
+\newcommand{\reachable}{{\mathsf {Reachable}}}
+
+\newcommand{\extend}{{\mathsf {Extend}}}
+\newcommand{\basecheck}{{\mathsf {BaseCheck}}}
+\newcommand{\extendcheck}{{\mathsf {ExtendCheck}}}
+
+\newcommand{\glb}{\textit {GLB}\xspace}
+\newcommand{\lub}{\textit {LUB}\xspace}
+\newcommand{\tuple}[1]{\langle #1 \rangle}
+
+\renewcommand{\labelitemi}{\tiny$\blacksquare$}
+
+\newcommand{\andreas}[1]{\textcolor{blue}{Andreas: #1}}
+\newcommand{\mike}[1]{\textcolor{red}{Mike: #1}}
+\newcommand{\andrew}[1]{\textcolor{green}{Andrew: #1}}
+\newcommand{\john}[1]{\textcolor{orange}{John: #1}}
+\newcommand{\grigory}[1]{\textcolor{brown}{Grigory: #1}}
+\newcommand{\arie}[1]{\textcolor{purple}{[Arie: #1]}}
+\newcommand{\huajun}[1]{\textcolor{yellow}{[Huajun: #1]}}
+
+\newcommand{\realizable}{\textsc{realizable}\xspace}
+\newcommand{\unrealizable}{\textsc{unrealizable}\xspace}
+\newcommand{\skolems}{\textit{Skolem}}
+\newcommand{\aevalres}{\textit{aevalResult}}
+\newcommand{\init}{\textit{init}}
+\newcommand{\subs}{\textit{validRegion}}
+\newcommand{\isValid}{\textsc{isValid}\xspace}
+\newcommand{\isInvalid}{\textsc{isInvalid}\xspace}
+%\newcommand{\isSat}{\textsc{isSat}\xspace}
+\newcommand{\isUnsat}{\textsc{isUnsat}\xspace}
+
+\newcommand\eqdef{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny def}}}{=}}}
+
+\newcounter{template}
+\newenvironment{template}[1][htb]
+  {
+   \begin{algorithm2e}[#1]%
+   \SetAlgorithmName{Template}
+  }{\end{algorithm2e}}
+
+\newenvironment{requirement}
+{\vspace{0.05in}
+ \begin{mdframed}[roundcorner=10pt,backgroundcolor=gray!20]}
+{\end{mdframed}}
+
+
+\begin{document}
+\title{Algorithms for the Synthesis of Reactive Systems from Assume-Guarantee Contracts}
+
+\iffalse
+\author{\IEEEauthorblockN{Andreas Katis\IEEEauthorrefmark{1}, Grigory Fedyukovich\IEEEauthorrefmark{2},  Huajun
+Guo\IEEEauthorrefmark{1}, Andrew Gacek\IEEEauthorrefmark{3}\\ John
+Backes\IEEEauthorrefmark{3}, Arie Gurfinkel\IEEEauthorrefmark{4} and
+Michael W. Whalen\IEEEauthorrefmark{1}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Department of Computer Science and
+Engineering,
+University of Minnesota\\
+Email: \{katis001,guoxx663\}@umn.edu, whalen@cs.umn.edu}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}University of Washington Paul G. Allen School of Computer Science \& Engineering\\
+Email: grigory@cs.washington.edu}
+\IEEEauthorblockA{\IEEEauthorrefmark{3}Rockwell Collins Advanced Technology Center\\
+Email: \{andrew.gacek,john.backes\}@rockwellcollins.com}
+\IEEEauthorblockA{\IEEEauthorrefmark{4}Department of Electrical and Computer
+Engineering, University of Waterloo\\
+Email: agurfinkel@uwaterloo.ca}}
+\fi
+
+\author{Andreas Katis\inst{1}, Grigory Fedyukovich\inst{2}, Huajun Guo\inst{1},
+  Andrew Gacek\inst{3}, John Backes\inst{3}, Arie Gurfinkel\inst{4}, Michael
+  W. Whalen\inst{1}}%
+ 
+\institute{
+Department of Computer Science and Engineering, University of Minnesota\\
+\email{\{katis001,guoxx663\}@umn.edu, whalen@cs.umn.edu}
+\and
+Department of Computer Science, Princeton University\\
+\email{grigoryf@cs.princeton.edu}
+\and
+Rockwell Collins Advanced Technology Center\\
+\email{\{andrew.gacek,john.backes\}@rockwellcollins.com}
+\and
+Department of Electrical and Computer Engineering, University of Waterloo\\
+\email{agurfinkel@uwaterloo.ca}
+}
+
+%\author{\IEEEauthorblockN{Authors anonymized for submission to ASE}}
+
+
+\maketitle
+
+\begin{abstract}
+
+%shortened version due to 200 word limit
+Automated synthesis of reactive systems from specifications has been a topic of research for decades.  Recently, a variety of approaches have been proposed to extend synthesis of reactive systems from propositional specifications towards specifications over rich theories.
+%Such approaches include inductive synthesis, template-based synthesis, counterexample-guided synthesis, and predicate abstraction techniques. In this paper, w
+We propose a novel, completely automated approach to program synthesis which reduces the problem to deciding the validity of a set of $\forall\exists$-formulas.
+In spirit of
+%Inspired by verification techniques that construct inductive invariants, like
+IC3 / PDR, our problem space is recursively refined by blocking out regions of unsafe states, aiming to discover a fixpoint that describes safe reactions.
+If such a fixpoint is found, we construct a witness that is directly translated into an implementation.
+We implemented the algorithm on top of the \jkind model checker, and exercised it against contracts written using
+the Lustre specification language.
+Experimental results show how the new algorithm outperforms
+\jkind's already existing synthesis procedure based on $k$-induction and addresses soundness issues in the $k$-inductive approach with respect to unrealizable results.
+%\grigory{did not follow the  message about ``soundness for unrealizable results'' and dropped it for a while. Perhaps you could rephrase it and possibly move towards the beginning of the abstract.}
+%Experimental results show how the new algorithm yields better performance as well as soundness for ``unrealizable'' results when compared to \jkind's existing synthesis procedure, an approach based on the construction of $k$-inductive proofs of realizability.
+
+\iffalse
+Automated synthesis of reactive systems using only specification knowledge is one of
+the most popular and well explored subjects in formal verification. A variety of
+approaches have been proposed in the recent years, through inductive and
+functional synthesis, while template-based, counterexample-guided and predicate abstraction techniques
+have been proved useful towards extending the applicability of such algorithms
+to solving difficult problems. In this paper, we propose a novel approach to
+program synthesis, which is based on the validity of a $\forall\exists$-formula.
+The approach is inspired from verification techniques that construct
+inductive invariants, like Property Directed Reachability, and is completely automated. The original
+problem space is recursively refined by blocking out regions of unsafe states, with the goal being the discovery of a
+fixpont that describes a region containing safe reactions. If such a fixpoint
+is found, we construct a witness that can be directly transformed into an
+implementation using mainstream programming languages, like C. We implemented
+the algorithm in the \jkind model checker, and exercised it against contracts
+written using the Lustre specification language. Experimental results show how
+the new algorithm yields better performance as well as soundness for ``unrealizable'' results when compared to \jkind's existing synthesis procedure, an approach that is based on the construction of $k$-inductive proofs of realizability.
+\fi
+\end{abstract}
+
+\input{intro}
+\input{background}
+\input{kinductionsynth}
+\input{fixpointsynth}
+\input{impl}
+\input{results}
+\input{related}
+\input{conclusion}
+%\input{artifact}
+
+%\subsubsection*{\textbf{Acknowledgments}}
+%This work was funded by DARPA and AFRL under contract FA8750-12-9-0179 (Secure
+% Mathematically-Assured Composition of Control Models), and by NASA under contract NNA13AA21C (Compositional Verification of Flight Critical Systems), and by NSF under grant CNS-1035715 (Assuring the safety, security, and reliability of medical device cyber physical systems).
+% \IEEEtriggeratref{25}
+\bibliography{document}
+\bibliographystyle{splncs03}
+\end{document}
