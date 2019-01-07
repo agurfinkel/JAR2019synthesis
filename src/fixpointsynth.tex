@@ -1,52 +1,31 @@
 \section{Validity-Guided Synthesis from Assume-Guarantee Contracts}
-\label{sec:synthesis}
+\label{sec:fixpointsynth}
 
 \begin{algorithm*}[!t]
 \caption{\jsynvg (A : assumptions, G : guarantees)}
 \label{alg:synthesis}
 \begin{algorithmic}[1]
-%\Procedure{\jsynvg}{A : assumptions, G : guarantees}
 	\State $F(s) \gets \mathit{true}$\label{alg:init};\Comment{Fixpoint of viable states}
 	\While{$\mathit{true}$}
 		\State $\phi \gets \forall s,i. \ (F(s) \land A(s,i) \Rightarrow \exists s'.G_{T}(s,i,s') \land F(s'))$\label{alg:ae1};
 		\State $\tuple{\mathit{valid}, \subs, \skolems} \gets \aeval(\phi) \label{alg:val1}$;
-%		\State $\tuple{\skolems, \subs} \gets \aeval(\phi)$;
 		\If{$\mathit{valid}$\label{alg:val2}}
             \If{$\exists s . G_{I}(s) \land F(s)$}
-			%\If{$G_{I}(s) \land F(s) \neq false$}
 				\Return $\tuple{\realizable, \skolems, s, F}$\label{alg:issat};
 			\Else{\Comment{Empty set of initial or viable states}}
 		 		\Return $\unrealizable$\label{alg:unreal};
 		 	\EndIf
 		\Else{\Comment{Extract region of validity $Q(s,i)$}}
 			\State $Q(s,i) \gets \subs$\label{alg:valreg};
-%			\If{$Q(s,i) = false$}
-%				\Return $\tuple{\unrealizable, \varnothing}$;
-%			\EndIf
 			\State $\phi' \gets \forall s. \ (F(s) \Rightarrow \exists i. A(s,i) \land \lnot
 			Q(s,i))$\label{alg:ae2};
 			\State $\tuple{\_, \mathit{violatingRegion}, \_} \gets \aeval(\phi')$;
-%			\State $\tuple{\skolems', \subs'}\gets \aeval(\phi')$;
-%			\If{$(\isValid(\phi'))$}\Comment{If $Q(s,i)$ contains only unsafe states}
-%				\Return $\tuple{\unrealizable, \skolems'}$;
-%			\Else{}\Comment{Extract witnessing cex}
-%			\State $W(s) \gets true$;
-%			\If{$\isInvalid(\aevalres')$}
-				\State $W(s) \gets \mathit{violatingRegion}$;
-%			\EndIf
+			\State $W(s) \gets \mathit{violatingRegion}$;
 			\State $F(s) \gets F(s) \land \lnot W(s)$\label{alg:rem};\Comment{Refine set of viable states}	
-			
-%				\If{$W(s) = false$}
-%					\Return $\tuple{\unrealizable, \varnothing}$;
-%				\EndIf
-				
-%			\EndIf
 		\EndIf
 	\EndWhile
-%\EndProcedure
 \end{algorithmic}
 \end{algorithm*}
-
 
 Alg.~\ref{alg:synthesis}, named \jsynvg (for {\em validity guided}), shows the validity-guided technique that we use towards the automatic synthesis of implementations. The specification is written using the Assume-Guarantee convention that we described in Section~\ref{sec:background} and is provided as an input.
 The algorithm relies on \aeval, for each call of which we write $\tuple{x, y, z} \gets \aeval(\ldots)$: $x$ specifies if the given formula is $\mathit{valid}$ or $\mathit{invalid}$, $y$ identifies the region of validity (in both cases), and $z$ -- the Skolem function (only in case of the validity).
