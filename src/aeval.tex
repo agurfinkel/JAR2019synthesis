@@ -1,21 +1,14 @@
 \subsection{Skolem functions and regions of validity}
 \label{sec:aeval}
 
-
-%\andreas{I believe the section can be a bit longer. I also think that the keyphrase ``region of validity'' needs to stand out more. Finally, a proof for Lemma 1, or at least an outline of it would be greatly appreciated.}
-
-We rely on the already established algorithm to decide the validity of $\forall\exists$-formulas and extract Skolem functions, called \aeval~\cite{fedyukovich2015automated}.
-It takes as input a formula $\forall x \,.\, \exists y  \,.\, \Phi (x, y)$ where $\Phi (x, y)$ is quantifier-free.
-To decide its validity, \aeval first normalizes $\Phi (x, y)$ to the form $S(x) \Rightarrow T(x, y)$ and then attempts to extend all models of $S(x)$ to models of $T(x,y)$.
-If such an extension is possible, then the input formula is valid, and a relationship between $x$ and $y$ are gathered in a Skolem function.
+In order to decide the validity of $\forall\exists$-formulas and extract Skolem functions, we rely on the already established algorithm  called \aeval. It takes as input a formula $\forall x \,.\, \exists y  \,.\, \Phi (x, y)$ where $\Phi (x, y)$ is quantifier-free. To decide its validity, \aeval first normalizes $\Phi (x, y)$ to the form $S(x) \Rightarrow T(x, y)$ and then attempts to extend all models of $S(x)$ to models of $T(x,y)$. If such an extension is possible, then the input formula is valid, and a relationship between $x$ and $y$ are gathered in a Skolem function.
 Otherwise the formula is invalid, and no Skolem function exists.
-We refer the reader to~\cite{KatisFGBGW16} for more details on the Skolem-function generation.
 
-Our approach presented in this paper relies on the fact that during each run, \aeval iteratively creates a set of formulas $\{P_i(x)\}$, such that each $P_i(x)$ has a common model with $S(x)$ and $P_i(x) \Rightarrow \exists y \,.\,T (x,y)$.
+Both of the approaches presented in this paper rely on the fact that during each run, \aeval iteratively creates a set of formulas $\{P_i(x)\}$, such that each $P_i(x)$ has a common model with $S(x)$ and $P_i(x) \Rightarrow \exists y \,.\,T (x,y)$.
 After $n$ iterations, \aeval establishes a formula $R_n(x) \eqdef \bigvee_{i=1}^n P_i(x)$ which by construction implies $\exists y\,.\,T(x,y)$.
 If additionally $S(x)\Rightarrow R_n(x)$, the input formula is valid, and the algorithm terminates.
 %
-Fig.~\ref{fg:aeval} shows a Venn diagram for an example of the opposite scenario: $R_2(x) = T_1(x) \lor T_2(x)$, but the input formula is invalid.
+Fig.~\ref{fg:aeval} shows a Venn diagram for an example of the opposite scenario: $R_2(x) = T_1(x) \lor T_2(x)$ \andreas{shouldn't the previous disjunction be: $P_1(x) \lor P_2(x)?$}, but the input formula is invalid.
 However, models of each $S(x) \land P_i(x)$ can still be extended to a model of $T(x, y)$.
 %Models of $S(x) \land \neg{R_2(x)}$ cannot be extended to models of $T(x,y)$, thus no formula $T_3(x)$ exists, and \aeval terminates.
 % \john {Because we are are already using $A$ and $G$ to represent meaningful formulas I suggest that we use different symbols here so it is not confusing. Especially because the symbols have different signatures in these locations.}

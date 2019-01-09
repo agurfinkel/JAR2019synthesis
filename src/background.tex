@@ -1,7 +1,7 @@
 \section{Overview: The Cinderella-Stepmother Game}
 \label{sec:example}
 
-We illustrate the flow of the validity guided-synthesis algorithm using a variation of the minimum-backlog
+For the rest of the paper, we discuss various concepts regarding the two algorithms using a variation of the minimum-backlog
 problem, the two player game between Cinderella and her wicked Stepmother, first expressed by Bodlaender \textit{et al.}~\cite{bodlaender2012cinderella}.
 
 The main objective for Cinderella (i.e. the reactive system) is to prevent a
@@ -29,10 +29,7 @@ A (conceptually) simple example is shown in Fig.~\ref{fg:agcontract}. The contra
 Our goal is to synthesize an implementation that describes Cinderella's winning region of the game. Cinderella in this case is the implementation, as shown by the middle box in Fig.~\ref{fg:agcontract}. Cinderella's inputs are five different values $i_k$, $1 \leq k \leq 5$, determined by a random distribution of one unit of water by the Stepmother. During each of her turns Cinderella has to make a choice denoted by the output variable $e$, such that the buckets $b_k$ do not overflow during the next action of her Stepmother. We define the contract using the set of assumptions $A$ (left box in Fig.~\ref{fg:agcontract}) and the guarantee constraints $G$ (right box in Fig.~\ref{fg:agcontract}). For the particular example, it is possible to construct at least one implementation that satisfies $G$ given $A$ which is described in Sect.~\ref{sec:algexample}.
 The proof of existence of such an implementation is the main concept behind the \emph{realizability} problem, while the automated construction of a witness implementation is the main focus of \emph{program synthesis}.
 
-Given a proof of realizability of the contract in Fig.~\ref{fg:agcontract}, % is \emph{realizable}, there should exist at least one implementation, and 
-we are seeking for an efficient synthesis procedure that could provide an implementation.
-On the other hand, consider a variation of the example, where $A = \mathit{true}$. This is a practical case of an
-\emph{unrealizable} contract, as there is no feasible Cinderella implementation that can correctly react to Stepmother's actions. An example counterexample allows the Stepmother to pour random amounts of water into the buckets, leading to overflow of at least one bucket during each of her turns.
+Given a proof of realizability of the contract in Fig.~\ref{fg:agcontract}, we are seeking for an efficient synthesis procedure that could provide an implementation. On the other hand, consider a variation of the example, where $A = \mathit{true}$. This is a practical case of an \emph{unrealizable} contract, as there is no feasible Cinderella implementation that can correctly react to Stepmother's actions. An example counterexample allows the Stepmother to pour random amounts of water into the buckets, leading to overflow of at least one bucket during each of her turns.
 
 \section{Background}
 \label{sec:background}
@@ -81,6 +78,7 @@ is realizable, we require that
 
 \noindent The synthesis problem is therefore to determine an initial state $s_i$ and function $f(s, i)$ such that $G_I(s_i)$ and $\forall s, i . \viable(s) \Rightarrow \viable(f(s, i))$.
 
+\iffalse
 The intuition behind our proposed algorithm in this paper relies on the
 discovery of a fixpoint $F$ that only contains viable states.  We can determine whether $F$ is a fixpoint by proving the validity of the following formula:
 \[
@@ -92,3 +90,4 @@ discovery of a fixpoint $F$ that only contains viable states.  We can determine 
 To achieve both the fixpoint generation and the witness extraction, we depend on \aeval, a solver for $\forall\exists$-formulas.
 
 \input{aeval}
+\fi

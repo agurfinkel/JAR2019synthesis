@@ -154,6 +154,8 @@ Cind2 (C = 2) & 1873 & 182.19 & 27.2s &  &  \\ \hline
 \hspace{-1em}
 \includegraphics[width=2.15in]{performance-crop}
 \label{fg:implperformance}}
+\subfloat[Size of implementations after compaction]{\includegraphics[width=2.15in]{loccompaction-crop}
+\label{fg:compactsize}}
 \caption{Experimental results.}
 \vspace{-5pt}
 \label{fg:results}
@@ -181,8 +183,7 @@ and subsequent evaluations, whereas currently \jsynvg uses a single function for
 % \aeval using \jsyn and \jsynvg, with the latter versions containing richer
 % expressions, mainly due to the refinement process.
 
-
-
+\iffalse
 Fig.~\ref{fg:results} does not cover the entirety of the
 benchmark suite. From the original 124 problems, eleven of them cannot be
 solved by \jsyn's $k$-inductive approach.
@@ -234,7 +235,7 @@ well as synthesize an implementation for each.
 \caption{Spurious counterexample for Cinderella-Stepmother example using \jsyn}
 \label{fg:cex}
 \end{figure}
-
+\fi
 % \begin{table*}[!t]
 % \centering
 % \caption{Cinderella-Stepmother results}

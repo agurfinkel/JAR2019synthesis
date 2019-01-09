@@ -69,12 +69,25 @@
 \newcommand{\isSat}{\textsc{isSat}\xspace}
 \newcommand{\isUnSat}{\textsc{isUnsat}\xspace}
 
+\iffalse
 \newcommand{\viable}{{\mathsf {Viable}}}
 \newcommand{\reachable}{{\mathsf {Reachable}}}
+\newcommand{\extendable}{{\mathsf {Extend_{n}(s)}}}
+\newcommand{\extendablek}{{\mathsf {Extend_{k}(s)}}}
 
 \newcommand{\extend}{{\mathsf {Extend}}}
 \newcommand{\basecheck}{{\mathsf {BaseCheck}}}
 \newcommand{\extendcheck}{{\mathsf {ExtendCheck}}}
+\fi
+
+\newcommand{\viable}{{\mathit {Viable}}}
+\newcommand{\reachable}{{\mathit {Reachable}}}
+\newcommand{\extendable}{{\mathit {Extend_{n}(s)}}}
+\newcommand{\extendablek}{{\mathit {Extend_{k}(s)}}}
+
+\newcommand{\extend}{{\mathit {Extend}}}
+\newcommand{\basecheck}{{\mathit {BaseCheck}}}
+\newcommand{\extendcheck}{{\mathit {ExtendCheck}}}
 
 \newcommand{\glb}{\textit {GLB}\xspace}
 \newcommand{\lub}{\textit {LUB}\xspace}
@@ -120,6 +133,7 @@
 \begin{document}
 \title{Algorithms for the Synthesis of Reactive Systems from Assume-Guarantee Contracts}
 \andreas{TODO : Update author and contact information}
+\andreas{TODO : Cite Grigory's VMCAI paper on AE-VAL}
 \author{Andreas Katis\inst{1}, Grigory Fedyukovich\inst{2}, Huajun Guo\inst{1},
   %Andrew Gacek\inst{3},
   John Backes\inst{3}, Arie Gurfinkel\inst{4}, Michael W. Whalen\inst{1}}%

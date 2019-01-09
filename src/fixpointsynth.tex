@@ -1,6 +1,17 @@
 \section{Validity-Guided Synthesis from Assume-Guarantee Contracts}
 \label{sec:fixpointsynth}
 
+The lack of soundness for unrealizable results in \jsyn was the catalyst towards pursuing a better approach. The intuition behind the second algorithm in this paper relies on the discovery of a fixpoint $F$ that only contains viable states.  We can determine whether $F$ is a fixpoint by proving the validity of the following formula:
+\[
+\forall s,i. \ (F(s) \land A(s,i) \Rightarrow \exists s'.G_{T}(s,i,s') \land F(s'))
+\]
+
+\noindent In the case where the greatest fixpoint $F$ is non-empty, we check whether it satisfies $G_{I}$ for some initial state.  If so, we proceed by extracting a witnessing initial state and witnessing skolem function $f(s, i)$ to determine $s'$ that is, by construction, guaranteed to satisfy the specification.
+
+To achieve witness extraction, we again depend on \aeval, with its support for generating \textit{regions of validity} being particularly crucial for the computation of fixpoints.
+
+\input{aeval}
+
 \begin{algorithm*}[!t]
 \caption{\jsynvg (A : assumptions, G : guarantees)}
 \label{alg:synthesis}
@@ -27,8 +38,7 @@
 \end{algorithmic}
 \end{algorithm*}
 
-Alg.~\ref{alg:synthesis}, named \jsynvg (for {\em validity guided}), shows the validity-guided technique that we use towards the automatic synthesis of implementations. The specification is written using the Assume-Guarantee convention that we described in Section~\ref{sec:background} and is provided as an input.
-The algorithm relies on \aeval, for each call of which we write $\tuple{x, y, z} \gets \aeval(\ldots)$: $x$ specifies if the given formula is $\mathit{valid}$ or $\mathit{invalid}$, $y$ identifies the region of validity (in both cases), and $z$ -- the Skolem function (only in case of the validity).
+Alg.~\ref{alg:synthesis}, named \jsynvg (for {\em validity guided}), shows the validity-guided technique that we use towards the automatic synthesis of implementations. The specification is written using the Assume-Guarantee convention that we described in Section~\ref{sec:background} and is provided as an input. For this algorithm we modify the form of the results provided by \aeval to $\tuple{x, y, z} \gets \aeval(\ldots)$: $x$ again specifies if the formula is (not) valid, $y$ identifies the region of validity (in both cases), and $z$ -- the Skolem function (only in case of the validity).
 
 The algorithm maintains a formula $F(s)$ which is initially assigned $\mathit{true}$ (line~\ref{alg:init}).
 It then attempts to strengthen $F(s)$ until it only contains viable states (recall Eqs.~\ref{eq:viable}
@@ -438,7 +448,7 @@ Assume a quantifier elimination process that provides exact regions of validity.
 Notice how the Theorems on the soundness of the results provided by the validity-guided approach assume a quantifier elimination process that computes exact regions of validity. This is a crucial requirement, as it determines the overall effectiveness of the approach. The algorithm is still applicable to cases where the assumption is not met, however its effectiveness on providing sound results is directly affected. Not considering the case of exact regions, we have two other cases, overapproximations and underapproximations. In the former case, the regions of unsafe states (i.e. the negation of a region of validity) would be underapproximations and the algorithm's performance decreases, since problems might not be solvable as fast as with the use of exact regions. On the other hand, if the regions of validity are underapproximations, their negations are overapproximations, and as such, the blocked regions might cover safe states in their constraints. This makes the algorithm follow a more pessimistic approach, where it overconstrains the problem to find a solution. This might lead to cases where an otherwise realizable contract might be declared as unrealizable by the process. We show how the latter can be manifested in practice in Section~\ref{sec:results}, where we compare our approach to a synthesis algorithm that is based on $k$-induction and is prone to incorrect ``unrealizable'' results. In the context of this paper, and considering Lemma~\ref{lem:subset}, \aeval is able to provide exact regions of validity.
 \fi
 
-
+\iffalse
 \begin{figure}[!t]
 \centering
  \begin{Verbatim}[fontsize=\scriptsize]
@@ -469,10 +479,10 @@ tel;
 
 \label{fg:cind}
 \end{figure}
-
+\fi
 \subsection{Applying \jsynvg to the Cinderella-Stepmother game}
 \label{sec:algexample}
-
+\iffalse
 Fig.~\ref{fg:cind} shows one possible interpretation of the contract designed
 for the instance of the Cinderella-Stepmother game that we introduced in Sect.~\ref{sec:example}. The contract
 is expressed in Lustre~\cite{lustrev6}, a language
@@ -498,6 +508,7 @@ The contract should only be realizable if, assuming valid inputs given by the St
 (i.e. positive values to input variables that add up to one water unit),
 Cinderella can keep reacting indefinitely, by providing outputs that satisfy the
 guarantees (i.e. she empties buckets in order to prevent overflow in Stepmother's next turn).
+\fi
 \iffalse
 \begin{figure}[!t]
 \centering
