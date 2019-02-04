@@ -1,12 +1,11 @@
 %%This is a very basic article template.
 %%There is just one section and two subsections.
-\documentclass[10pt,conference]{llncs}
+\documentclass[smallcondenced]{svjour3}
 
 %to handle ranges of citations in IEEEtran
 \usepackage[noadjust]{cite}
 \renewcommand{\citepunct}{,\penalty\citepunctpenalty\,}
 \renewcommand{\citedash}{--}% optionally
-
 %To fix ``fi'' encoding
 \usepackage{cmap}
 %\usepackage{amsthm}
@@ -134,28 +133,28 @@
 \title{Algorithms for the Synthesis of Reactive Systems from Assume-Guarantee Contracts}
 \andreas{TODO : Update author and contact information}
 \andreas{TODO : Cite Grigory's VMCAI paper on AE-VAL}
-\author{Andreas Katis\inst{1}, Grigory Fedyukovich\inst{2}, Huajun Guo\inst{1},
-  %Andrew Gacek\inst{3},
-  John Backes\inst{3}, Arie Gurfinkel\inst{4}, Michael W. Whalen\inst{1}}%
+\author{Andreas Katis \and Grigory Fedyukovich \and Andrew Gacek \and John Backes \and Arie Gurfinkel \and Michael W. Whalen}%
  
-\institute{
-Department of Computer Science and Engineering, University of Minnesota\\
-\email{\{katis001,guoxx663\}@umn.edu, whalen@cs.umn.edu}
+\institute{Andreas Katis \and Michael W. Whalen
+\at Department of Computer Science and Engineering, University of Minnesota\\
+\email{katis001@umn.edu, whalen@cs.umn.edu}
 \and
-Department of Computer Science, Princeton University\\
+Grigory Fedyukovich
+\at Department of Computer Science, Princeton University\\
 \email{grigoryf@cs.princeton.edu}
 \and
-Rockwell Collins Advanced Technology Center\\
-\email{\{
-%andrew.gacek,
-john.backes\}@rockwellcollins.com}
+Andrew Gacek \and John Backes
+\at Rockwell Collins Advanced Technology Center\\
+\email{\{andrew.gacek, john.backes\}@rockwellcollins.com}
 \and
-Department of Electrical and Computer Engineering, University of Waterloo\\
+Arie Gurfinkel
+\at Department of Electrical and Computer Engineering, University of Waterloo\\
 \email{agurfinkel@uwaterloo.ca}
 }
 
 %\author{\IEEEauthorblockN{Authors anonymized for submission to ASE}}
 
+%\titlerunning{Reactive Synthesis from Assume-Guarantee contracts}
 
 \maketitle
 
